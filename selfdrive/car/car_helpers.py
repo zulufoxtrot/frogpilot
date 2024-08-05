@@ -24,8 +24,8 @@ EventName = car.CarEvent.EventName
 def get_startup_event(car_recognized, controller_available, fw_seen, block_user):
   if block_user:
     return EventName.blockUser
-  else:
-    event = EventName.startupMaster
+#  else:
+#    event = EventName.startupMaster
 
   if not car_recognized:
     if fw_seen:
