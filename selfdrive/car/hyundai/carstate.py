@@ -188,9 +188,9 @@ class CarState(CarStateBase):
     self.steer_state = cp.vl["MDPS12"]["CF_Mdps_ToiActive"]  # 0 NOT ACTIVE, 1 ACTIVE
     self.prev_cruise_buttons = self.cruise_buttons[-1]
     self.cruise_buttons.extend(cp.vl_all["CLU11"]["CF_Clu_CruiseSwState"])
-    self.prev_main_buttons = self.main_buttons[-1]
+    self.prev_main_buttons = self.main_buttons[-2]
     self.main_buttons.extend(cp.vl_all["CLU11"]["CF_Clu_CruiseSwMain"])
-    if self.prev_main_buttons == 0 and self.main_buttons[-1] != 0 and not cp.vl["E_EMS11"]["Cruise_Limit_Status"] == 1:
+    if self.prev_main_buttons == 0 and self.main_buttons[-2] != 0:
       self.main_enabled = not self.main_enabled
 
     # FrogPilot CarState functions
@@ -282,7 +282,7 @@ class CarState(CarStateBase):
     self.cruise_buttons.extend(cp.vl_all[self.cruise_btns_msg_canfd]["CRUISE_BUTTONS"])
     self.prev_main_buttons = self.main_buttons[-1]
     self.main_buttons.extend(cp.vl_all[self.cruise_btns_msg_canfd]["ADAPTIVE_CRUISE_MAIN_BTN"])
-    if self.prev_main_buttons == 0 and self.main_buttons[-1] != 0:
+    if self.prev_main_buttons == 0 and self.main_buttons[-2] != 0:
       self.main_enabled = not self.main_enabled
     self.buttons_counter = cp.vl[self.cruise_btns_msg_canfd]["COUNTER"]
     ret.accFaulted = cp.vl["TCS"]["ACCEnable"] != 0  # 0 ACC CONTROL ENABLED, 1-3 ACC CONTROL DISABLED
